@@ -26,11 +26,9 @@ def print_linked_list(head):
     print("None")
     
 def insertatbeg(head,val):
-    newnode=Node(val)
-    newnode.next=head
-    head=newnode
+    newnode=Node(val,head)
     
-    return head
+    return newnode
 
 
 if __name__ == "__main__":
