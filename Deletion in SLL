@@ -1,0 +1,100 @@
+class Node:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
+
+
+# list to singly linked list
+def create_ll(arr):
+    head = Node(arr[0])
+    temp = head
+    for i in arr[1:]:
+        temp.next = Node(i)
+        temp = temp.next
+    return head
+
+
+# display the linked list
+def print_ll(head):
+    curr = head
+    while curr:
+        print(curr.data, "-> ", end="")
+        curr = curr.next
+    print("none")
+
+
+# Deletion at begining
+def delstbeg(head):
+    if head is None or head.next is None:
+        return None
+    curr = head.next
+    head = curr
+    return head
+
+
+# deletion at end:
+def delatend(head):
+    if head is None or head.next is None:
+        return None
+    curr = head
+    while curr.next.next:
+        curr = curr.next
+    curr.next = None
+    return head
+
+
+# deletion at middle using pos:
+def delatpos(head, pos):
+    curr = head
+    for i in range(1, pos - 1):
+        curr = curr.next
+    curr.next = curr.next.next
+    return head
+
+
+# delete the node using value
+def delusingval(head, val):
+    curr = head
+    while curr.next and curr.next.data != val:
+        curr = curr.next
+    curr.next = curr.next.next
+    return head
+
+
+# Delete entire LINKED LIST
+def delete_entire_ll(head):
+    head = None
+    return head
+
+
+if __name__ == "__main__":
+    arr = [5, 6, 10, 9, 8, 7, 3]
+
+    head3 = create_ll(arr)
+    head2 = create_ll(arr)
+    head1 = create_ll(arr)
+    head = create_ll(arr)
+    head0 = create_ll(arr)
+
+    Beg_del = delstbeg(head2)
+
+    end_del = delatend(head3)
+
+    mid_pos_del = delatpos(head, 3)
+
+    mid_val_del = delusingval(head0, 8)
+
+    print("LINKED LIST BEFORE OPERTIONS")
+    print_ll(head1)
+
+    print("Deletion at begining")
+    print_ll(Beg_del)
+
+    print("Deletion at end ")
+    print_ll(end_del)
+
+    print("Deletion at middle using position 3")
+    print_ll(mid_pos_del)
+
+    print("Deletion at middle using value 8")
+    print_ll(mid_val_del)
