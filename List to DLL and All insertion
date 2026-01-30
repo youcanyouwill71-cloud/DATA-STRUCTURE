@@ -1,0 +1,107 @@
+class Node:
+    def __init__(self, data, prev=None, next=None):
+        self.data = data
+        self.next = next
+        self.prev = prev
+
+
+# list to doubly linked list    
+def create_dll(arr):
+    if not arr:
+        return None
+
+    head = Node(arr[0])
+    curr = head
+    for i in arr[1:]:
+        curr.next = Node(i, curr)
+        curr = curr.next
+    return head
+
+
+# displaying a doubly linked list
+def print_dll(head):
+    if not head:
+        print("List is empty")
+        return
+
+    curr = head
+    while curr:
+        prev_val = curr.prev.data if curr.prev else "None"
+        next_val = curr.next.data if curr.next else "None"
+        print(f"{prev_val} | {curr.data} | {next_val}", end=" --> ")
+        curr = curr.next
+    print("None")
+
+
+# Insertion at Beginning
+def insert_beg(head, val):
+    newnode = Node(val, None, head)
+    if head:
+        head.prev = newnode
+    return newnode
+
+#Insertion at end 
+def insert_end(head,val):
+    curr=head
+    while curr.next:
+        curr=curr.next
+    newnode=Node(val,curr)
+    curr.next=newnode
+    return head
+
+#Insertion using position
+def insert_pos(head,pos,val):
+    curr=head
+    prv=head
+    for i in range(pos):
+        prv=curr
+        curr=curr.next
+    # print(prv.data,curr.data)
+    newnode=Node(val,prv,curr)
+    prv.next=curr.prev=newnode
+    return(head)
+    
+#Insert using value
+def insert_val(head,val,data):
+    curr=head
+    prv=curr
+    while(curr.data!=val):
+        prv=curr
+        curr=curr.next
+    newnode=Node(data,prv,curr)
+    prv.next=curr.prev=newnode
+    return(head)
+
+# Driver function
+if __name__ == "__main__":
+    arr = [1, 2, 3, 4, 5]
+
+    head = create_dll(arr)
+    head2 = create_dll(arr)
+    beginsert = insert_beg(head2, 0)
+    head3=create_dll(arr)
+    endinsert = insert_end(head3,6)
+    head4=create_dll(arr)
+    pos_insert = insert_pos(head4,2,99)
+    head5=create_dll(arr)
+    val_inser = insert_val(head5,4,88)
+    
+
+    print("Original DLL:")
+    print_dll(head)
+
+    print("\nAfter insertion at beginning:")
+    print_dll(beginsert)
+    
+    print("\nAfter inserting at end:")
+    print_dll(endinsert)
+    
+    print("\nAfter inserting a value at specific position:")
+    print_dll(pos_insert)
+    
+    print("\nAfter inserting a value at specific value:")
+    print_dll(val_inser)
+    
+    
+    
+    
