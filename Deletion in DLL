@@ -1,0 +1,121 @@
+class Node:
+    def __init__(self, data, prev=None, next=None):
+        self.data = data
+        self.next = next
+        self.prev = prev
+
+# list to doubly linked list    
+def create_dll(arr):
+    if not arr:
+        return None
+
+    head = Node(arr[0])
+    curr = head
+    for i in arr[1:]:
+        curr.next = Node(i, curr)
+        curr = curr.next
+        # print("creating..")
+    return head
+
+
+# displaying a doubly linked list
+def print_dll(head):
+    if not head:
+        print("List is empty")
+        return
+
+    curr = head
+    while curr:
+        prev_val = curr.prev.data if curr.prev else "None"
+        next_val = curr.next.data if curr.next else "None"
+        print(f"{prev_val} | {curr.data} | {next_val}", end=" --> ")
+        curr = curr.next
+    print("None")
+
+    
+#Delete at begining
+def del_beg(head):
+    if not head or not head.next:
+        return None
+    head=head.next
+    head.prev=None
+    # print("doing...")
+    return head
+    
+#Delete at end
+def del_end(head):
+    curr=head
+    prev=curr
+    while(curr.next):
+        prev=curr
+        curr=curr.next
+       
+    prev.next=None
+    return(head)
+
+#del@pos
+def del_pos(head, pos):
+    if head is None:
+        return None
+
+    # Delete head
+    if pos == 1:
+        head = head.next
+        if head:
+            head.prev = None
+        return head
+
+    curr = head
+    for i in range(1, pos):
+        curr = curr.next
+        if curr is None:
+            return head  # position out of range
+
+    curr.prev.next = curr.next
+    if curr.next:
+        curr.next.prev = curr.prev
+
+    return head
+
+    
+#del_val
+def del_val(head, val):
+    if head is None:
+        return None
+
+    curr = head
+
+    # If head holds the value
+    if curr.data == val:
+        head = curr.next
+        if head:
+            head.prev = None
+        return head
+
+    while curr and curr.data != val:
+        curr = curr.next
+
+    if curr is None:
+        return head  # value not found
+
+    curr.prev.next = curr.next
+    if curr.next:
+        curr.next.prev = curr.prev
+
+    return head
+
+    
+if __name__ == "__main__":
+    arr = [0, 1, 2, 3, 4, 5, 6]
+
+    head = create_dll(arr)
+    # head=del_beg(head)
+    # head1=del_end(head)
+    head=del_val(head,3)
+    
+    print_dll(head)
+    
+    
+    
+    
+    
